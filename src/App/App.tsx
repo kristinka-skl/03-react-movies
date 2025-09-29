@@ -25,9 +25,9 @@ export default function App() {
       if (data.length === 0) {
         toast("No movies found for your request");
       }
-      console.log(moviesList);
     } catch {
       setIsErrorMessage(true);
+      setMoviesList([]);
     } finally {
       setIsLoading(false);
     }
@@ -47,7 +47,9 @@ export default function App() {
       <SearchBar onSubmit={handleSearch} />
       {isLoading && <Loader />}
       {isErrorMessage && <ErrorMessage />}
-      {moviesList && <MovieGrid onSelect={handleSelect} movies={moviesList} />}
+      {moviesList.length > 0 && (
+        <MovieGrid onSelect={handleSelect} movies={moviesList} />
+      )}
       {isModalOpen && ModalData && (
         <MovieModal onClose={handleModalClose} data={ModalData} />
       )}
