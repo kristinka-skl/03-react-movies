@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.module.css";
 import "modern-normalize";
-import SearchBar from "../../SearchBar/SearchBar";
+import SearchBar from "../SearchBar/SearchBar";
 import toast, { Toaster } from "react-hot-toast";
 import fetchMovies from "../../services/movieService";
 import type { Movie } from "../../types/movie";
