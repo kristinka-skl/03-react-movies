@@ -2,11 +2,11 @@ import { createPortal } from "react-dom";
 import css from "./MovieModal.module.css";
 import type { Movie } from "../../types/movie";
 import { useEffect } from "react";
-interface MovieModalProp {
-  data: Movie;
+interface MovieModalProps {
+  movie: Movie;
   onClose: () => void;
 }
-export default function MovieModal({ data, onClose }: MovieModalProp) {
+export default function MovieModal({ movie, onClose }: MovieModalProps) {
   const onBackDropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.currentTarget === e.target) {
       onClose();
@@ -42,28 +42,28 @@ export default function MovieModal({ data, onClose }: MovieModalProp) {
         >
           &times;
         </button>
-        {data.poster_path ? (
+        {movie.poster_path || movie.backdrop_path ? (
           <img
             className={css.image}
             src={
-              data.backdrop_path
-                ? `https://image.tmdb.org/t/p/original${data.backdrop_path}`
-                : `https://image.tmdb.org/t/p/w500${data.poster_path}`
+              movie.backdrop_path
+                ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
+                : `https://image.tmdb.org/t/p/w500${movie.poster_path}`
             }
-            alt={data.title}
+            alt={movie.title}
           />
         ) : (
           <span className={css.noimage}>No image</span>
         )}
 
         <div className={css.content}>
-          <h2>{data.title}</h2>
-          <p>{data.overview}</p>
+          <h2>{movie.title}</h2>
+          <p>{movie.overview}</p>
           <p>
-            <strong>Release Date:</strong> {data.release_date}
+            <strong>Release Date:</strong> {movie.release_date}
           </p>
           <p>
-            <strong>Rating:</strong> {data.vote_average}/10
+            <strong>Rating:</strong> {movie.vote_average}/10
           </p>
         </div>
       </div>

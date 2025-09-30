@@ -14,8 +14,7 @@ export default function App() {
   const [moviesList, setMoviesList] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isErrorMessage, setIsErrorMessage] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [ModalData, setModalData] = useState<Movie | null>(null);
+  const [modalData, setModalData] = useState<Movie | null>(null);
   const handleSearch = async (topic: string) => {
     try {
       setIsErrorMessage(false);
@@ -35,11 +34,9 @@ export default function App() {
 
   const handleSelect = (data: Movie) => {
     setModalData(data);
-    setIsModalOpen(true);
   };
 
   const handleModalClose = () => {
-    setIsModalOpen(false);
     setModalData(null);
   };
   return (
@@ -50,9 +47,7 @@ export default function App() {
       {moviesList.length > 0 && (
         <MovieGrid onSelect={handleSelect} movies={moviesList} />
       )}
-      {isModalOpen && ModalData && (
-        <MovieModal onClose={handleModalClose} data={ModalData} />
-      )}
+      {modalData && <MovieModal onClose={handleModalClose} movie={modalData} />}
       <div>
         <Toaster position="top-right" reverseOrder={false} />
       </div>
